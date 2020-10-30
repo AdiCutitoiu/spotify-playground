@@ -1,0 +1,45 @@
+html,
+body {
+  height: 100%;
+}
+
+.main-window {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.song-list {
+  flex: 3;
+}
+
+.player {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  background-color: #ebebeb;
+}
+
+.player-song-details {
+  flex: 1;
+}
+
+.player-controls {
+  flex: 2;
+  margin: 0 15px;
+  flex-direction: column;
+  display: flex;
+}
+
+.player-volume {
+  flex: 1;
+}
