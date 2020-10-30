@@ -1,0 +1,3 @@
+export const AUTH_SET_TOKEN = "AUTH_SET_TOKEN";
+
+export const PLAYER_UPDATE_DATA = "PLAYER_UPDATE_DATA";
