@@ -16,7 +16,9 @@ const SPOTIFY_PERMISSION = [
 ].join("%20");
 
 function App({ token, initialize }) {
-  React.useEffect(initialize, []);
+  React.useEffect(() => {
+    initialize();
+  }, []);
 
   if (token) {
     return <Dashboard token={TOKEN} />;
