@@ -3,6 +3,8 @@ import "./App.css";
 import Button from "@material-ui/core/Button";
 import { TOKEN } from "./util/api";
 import { Dashboard } from "./screens/Dashboard";
+import { connect } from "react-redux";
+import { initialize } from "./store/actions/authActions";
 
 const SPOTIFY_PERMISSION = [
   "user-read-playback-position",
@@ -13,8 +15,10 @@ const SPOTIFY_PERMISSION = [
   "user-read-playback-state",
 ].join("%20");
 
-function App() {
-  if (TOKEN) {
+function App({ token, initialize }) {
+  React.useEffect(initialize, []);
+
+  if (token) {
     return <Dashboard token={TOKEN} />;
   }
 
@@ -34,4 +38,9 @@ function App() {
   );
 }
 
-export default App;
+export default connect(
+  (state) => ({
+    token: state.auth.token,
+  }),
+  { initialize }
+)(App);

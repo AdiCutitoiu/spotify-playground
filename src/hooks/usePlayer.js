@@ -1,15 +1,14 @@
 import React from "react";
-import { TOKEN } from "../util/api";
+import { useSelector } from "react-redux";
 
 export function usePlayer() {
-  const [state, setState] = React.useState(null);
+  const token = useSelector(({ auth }) => auth.token);
 
   React.useEffect(() => {
-    console.log({ TOKEN });
     fetch("https://api.spotify.com/v1/me/player", {
       headers: {
         Accept: "application/json",
-        Authorization: `Bearer ${TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
@@ -18,14 +17,14 @@ export function usePlayer() {
     const intervalId = setInterval(() => {
       fetch("https://api.spotify.com/v1/me/player", {
         Accept: "application/json",
-        headers: { Authorization: `Bearer ${TOKEN}` },
+        headers: { Authorization: `Bearer ${token}` },
       })
         .then((response) => response.json())
         .then((data) => console.log(data));
     }, 20000);
 
     return () => clearInterval(intervalId);
-  }, [setState]);
+  }, [token]);
 
   return state;
 }
