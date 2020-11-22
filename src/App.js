@@ -30,7 +30,7 @@ function App({ token, initialize }) {
         variant="contained"
         color="primary"
         onClick={() => {
-          const authURL = `https://accounts.spotify.com/authorize?client_id=ca93a9a36737414992ab0d839625d5ac&redirect_uri=http:%2F%2Flocalhost:3000&scope=${SPOTIFY_PERMISSION}&response_type=token`;
+          const authURL = `https://accounts.spotify.com/authorize?client_id=ca93a9a36737414992ab0d839625d5ac&redirect_uri=http:%2F%2Flocalhost:3000&scope=${SPOTIFY_PERMISSION}&response_type=token&show_dialog=true`;
           window.location.replace(authURL);
         }}
       >

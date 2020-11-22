@@ -3,6 +3,7 @@ import { Slider, Grid, Typography, Box, IconButton } from "@material-ui/core";
 import { GREEN } from "../util/colors";
 import { PlayArrow, Pause, SkipNext, SkipPrevious } from "@material-ui/icons";
 import { connect } from "react-redux";
+import { pauseAsync, resumeAsync, skip } from "../store/thunks/playerThunks";
 
 const formatTime = (timeMs) => {
   const mins = Math.floor(timeMs / 60000);
@@ -14,16 +15,25 @@ const formatTime = (timeMs) => {
   return `${minsStr}:${secsStr}`;
 };
 
+function ThumbComponent() {
+  return null;
+}
+
 export function PlayerControls({
   isPlaying,
   disallows,
   progressMs,
   durationMs,
+  dispatch,
 }) {
-  const handleChange = (event, newValue) => {};
-
   const currentProgress = formatTime(progressMs);
   const duration = formatTime(durationMs);
+
+  const [progress, setProgress] = React.useState(null);
+  const handleChange = React.useCallback((event, value) => {
+    console.log(value);
+    setProgress(value);
+  }, []);
 
   return (
     <div className="player-controls">
@@ -34,13 +44,18 @@ export function PlayerControls({
               aria-label="Skip previous"
               color="primary"
               disabled={disallows.skipping_prev}
+              onClick={() => dispatch(skip(true))}
             >
               <SkipPrevious />
             </IconButton>
           </Grid>
           <Grid item>
             {!isPlaying && (
-              <IconButton aria-label="Play" color="primary">
+              <IconButton
+                aria-label="Play"
+                color="primary"
+                onClick={() => dispatch(resumeAsync())}
+              >
                 <PlayArrow />
               </IconButton>
             )}
@@ -49,6 +64,7 @@ export function PlayerControls({
                 aria-label="Pause"
                 color="primary"
                 disabled={disallows.pausing}
+                onClick={() => dispatch(pauseAsync())}
               >
                 <Pause />
               </IconButton>
@@ -59,6 +75,7 @@ export function PlayerControls({
               aria-label="Skip next"
               color="primary"
               disabled={disallows.skipping_next}
+              onClick={() => dispatch(skip(true))}
             >
               <SkipNext />
             </IconButton>
@@ -72,8 +89,11 @@ export function PlayerControls({
             <Slider
               min={0}
               max={durationMs}
-              value={progressMs}
+              value={progress != null ? progress : progressMs}
               aria-labelledby="continuous-slider"
+              step={1000}
+              onChange={handleChange}
+              onChangeCommitted={(value) => setProgress(null)}
             />
           </Grid>
           <Grid item xs={2}>

@@ -20,7 +20,7 @@ const PlayerUpdateListener = ({ token, updatePlayerData }) => {
     };
 
     fetchPlayer();
-    const intervalId = setInterval(fetchPlayer, 5000);
+    const intervalId = setInterval(fetchPlayer, 1000);
 
     return () => clearInterval(intervalId);
   }, [token, updatePlayerData]);
