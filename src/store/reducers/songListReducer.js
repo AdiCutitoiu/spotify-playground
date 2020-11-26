@@ -3,7 +3,7 @@ import { SONG_LIST_SET, SONG_LIST_SET_SEARCH } from "../actions/actionTypes";
 
 const initialState = { songs: [], search: "" };
 
-export function SongListReducer(state = initialStatem, action) {
+export default function SongListReducer(state = initialState, action) {
   switch (action.type) {
     case SONG_LIST_SET:
       return {

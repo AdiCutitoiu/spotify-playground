@@ -19,14 +19,12 @@ body {
 }
 
 .song-list {
-  flex: 3;
+  flex: 1;
 }
 
 .player {
-  flex: 1;
   display: flex;
   justify-content: space-between;
-  background-color: #ebebeb;
 }
 
 .player-song-details {
